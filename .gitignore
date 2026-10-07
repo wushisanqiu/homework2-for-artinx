@@ -1,0 +1,25 @@
+# 构建目录与产物（提交时不要包含）
+/build/
+/build-*/
+/cmake-build-*/
+CMakeUserPresets.json
+
+# 编译产物
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.exe
+a.out
+
+# 工具产物
+compile_commands.json
+.cache/
+.idea/
+# 注意：.vscode/ 有意纳入版本管理（为学生预置 clangd + CodeLLDB 配置，见 docs/vscode.md）
+
+# 系统文件
+.DS_Store
+Thumbs.db
