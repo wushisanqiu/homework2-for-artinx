@@ -1,0 +1,83 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "cmake: configure",
+      "type": "shell",
+      "command": "cmake",
+      "args": ["-S", ".", "-B", "build"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+      "detail": "配置 build/ 目录并生成 compile_commands.json（clangd 依赖它）。第一次打开仓库先跑这个。"
+    },
+    {
+      "label": "cmake: configure (bonus)",
+      "type": "shell",
+      "command": "cmake",
+      "args": ["-S", ".", "-B", "build", "-DENABLE_BONUS_TESTS=ON"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+      "detail": "额外构建 bonus 流运算符测试（bonus_stream）。"
+    },
+    {
+      "label": "cmake: 清理并重新配置",
+      "type": "shell",
+      "command": "rm -rf build && cmake -S . -B build",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+      "detail": "删除 build/ 后重新配置（改了 CMakeLists.txt 或出现奇怪的缓存问题时用；需要 bash）。"
+    },
+    {
+      "label": "cmake: build",
+      "type": "shell",
+      "command": "cmake",
+      "args": ["--build", "build", "-j"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+      "detail": "构建全部里程碑测试（快捷键 Ctrl+Shift+B）。"
+    },
+    {
+      "label": "ctest: 运行全部测试",
+      "type": "shell",
+      "command": "ctest",
+      "args": ["--output-on-failure"],
+      "options": { "cwd": "${workspaceFolder}/build" },
+      "dependsOn": ["cmake: build"],
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "detail": "运行 m1_basics ~ m4_edge_cases（开启 bonus 时还包含 bonus_stream）。"
+    },
+    {
+      "label": "ctest: 只跑一个里程碑",
+      "type": "shell",
+      "command": "ctest",
+      "args": ["--output-on-failure", "-R", "${input:milestone}"],
+      "options": { "cwd": "${workspaceFolder}/build" },
+      "dependsOn": ["cmake: build"],
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "detail": "选择单个里程碑测试运行，输出更短、定位更快。"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "milestone",
+      "type": "pickString",
+      "description": "选择要运行的测试",
+      "options": [
+        "^m1_basics$",
+        "^m2_value_semantics$",
+        "^m3_move$",
+        "^m4_edge_cases$",
+        "^m5_strong_safety$",
+        "^bonus_stream$"
+      ],
+      "default": "^m1_basics$"
+    }
+  ]
+}

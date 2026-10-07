@@ -1,0 +1,10 @@
+{
+  // 本仓库为学生预置了 VS Code 配置（clangd + CodeLLDB），说明见 docs/vscode.md。
+  // 建议安装这两个扩展：
+  //   code --install-extension llvm-vs-code-extensions.vscode-clangd
+  //   code --install-extension vadimcn.vscode-lldb
+  "recommendations": [
+    "llvm-vs-code-extensions.vscode-clangd",
+    "vadimcn.vscode-lldb"
+  ]
+}

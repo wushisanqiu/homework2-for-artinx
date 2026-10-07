@@ -1,0 +1,23 @@
+{
+  // clangd 使用 build/ 下的 compile_commands.json（CMakeLists 里已开启
+  // CMAKE_EXPORT_COMPILE_COMMANDS）。首次打开仓库后请先运行一次任务：
+  //   Ctrl+Shift+P -> Tasks: Run Task -> cmake: configure
+  // 否则 clangd 找不到头文件路径，编辑器里会满屏红波浪线。
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/build",
+    "--background-index",
+    "--completion-style=detailed"
+  ],
+  "clangd.fallbackFlags": ["-std=c++17"],
+
+  // 避免微软 C/C++ 扩展与 clangd 抢诊断（没装该扩展也不影响）
+  "C_Cpp.intelliSenseEngine": "disabled",
+
+  // 构建产物不进搜索与文件监视，省资源
+  "files.watcherExclude": {
+    "**/build*/**": true
+  },
+  "search.exclude": {
+    "**/build*/": true
+  }
+}

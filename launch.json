@@ -1,0 +1,63 @@
+{
+  // 使用 CodeLLDB（扩展 vadimcn.vscode-lldb，type 为 "lldb"）调试测试程序。
+  // 每次启动会先执行 preLaunchTask "cmake: build"，保证调试的是最新代码。
+  // 说明与排错见 docs/vscode.md。
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "调试 M1 · 基础接口 (m1_basics)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/m1_basics",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "cmake: build"
+    },
+    {
+      "name": "调试 M2 · 值语义与插入 (m2_value_semantics)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/m2_value_semantics",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "cmake: build"
+    },
+    {
+      "name": "调试 M3 · 移动语义 (m3_move)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/m3_move",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "cmake: build"
+    },
+    {
+      "name": "调试 M4 · 边界与自操作 (m4_edge_cases)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/m4_edge_cases",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "cmake: build"
+    },
+    {
+      "name": "调试 M5 · 强异常安全 (m5_strong_safety)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/m5_strong_safety",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "cmake: build"
+    },
+    {
+      "name": "调试 Bonus · 流运算符 (bonus_stream)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/bonus_stream",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      // bonus 默认不构建：先运行任务 "cmake: configure (bonus)" 再调试
+      "preLaunchTask": "cmake: build"
+    }
+  ]
+}
